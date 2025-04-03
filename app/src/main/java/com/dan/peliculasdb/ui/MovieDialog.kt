@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Message
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.ArrayAdapter
 import android.widget.Button
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
@@ -14,7 +15,7 @@ import com.dan.peliculasdb.application.PeliculasBDApp
 import com.dan.peliculasdb.data.MovieRepository
 import com.dan.peliculasdb.data.db.model.MovieEntity
 import com.dan.peliculasdb.databinding.MovieDialogBinding
-import com.google.android.material.textfield.TextInputEditText
+import android.widget.EditText
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -61,12 +62,13 @@ class MovieDialog(
             buildDialog("Guardar", "Cancelar", {
                 //Guardar
                 binding.apply {
-                    tietTitle.setText(movie.title)
-                    tietGenre.setText(movie.genre)
-                    tietDirector.setText(movie.director)
-                    tietYear.setText(movie.year)
-                    tietCompaniar.setText(movie.company)
+                    movie.title = tietTitle.text.toString()
+                    movie.genre = tietGenre.text.toString()
+                    movie.director = tietDirector.text.toString()
+                    movie.year = tietYear.text.toString()
+                    movie.company = tietCompaniar.text.toString()
                 }
+
 
                 try {
 
@@ -102,12 +104,13 @@ class MovieDialog(
             buildDialog(getString(R.string.update_button), getString(R.string.delete_button), {
                 //Actualizar
                 binding.apply {
-                    tietTitle.setText(movie.title)
-                    tietGenre.setText(movie.genre)
-                    tietDirector.setText(movie.director)
-                    tietYear.setText(movie.year)
-                    tietCompaniar.setText(movie.company)
+                    movie.title = tietTitle.text.toString()
+                    movie.genre = tietGenre.text.toString()
+                    movie.director = tietDirector.text.toString()
+                    movie.year = tietYear.text.toString()
+                    movie.company = tietCompaniar.text.toString()
                 }
+
 
                 try {
 
@@ -187,6 +190,15 @@ class MovieDialog(
     override fun onStart() {
         super.onStart()
 
+        val generos = listOf("Romance", "Terror", "Acción", "Ciencia Ficción","Animada", "Comedia","Otro")
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, generos)
+        binding.tietGenre.setAdapter(adapter)
+        binding.tietGenre.setOnClickListener {
+            binding.tietGenre.showDropDown()
+        }
+
+
+
         //Instanciamos el repositorio
         repository = (requireContext().applicationContext as PeliculasBDApp).repository
 
@@ -218,7 +230,8 @@ class MovieDialog(
                 && binding.tietDirector.text.toString().isNotEmpty()
                 && binding.tietYear.text.toString().isNotEmpty()
 
-    private fun setupTextWatcher(vararg textFields: TextInputEditText) {
+    private fun setupTextWatcher(vararg textFields: EditText)
+    {
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
