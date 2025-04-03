@@ -21,7 +21,7 @@ class MovieViewHolder (
             "ciencia ficcion" -> binding.ivIcon.setImageResource(R.drawable.ciencia_ficcion)
             "animada" -> binding.ivIcon.setImageResource(R.drawable.animada)
             "comedia" -> binding.ivIcon.setImageResource(R.drawable.comedia)
-            else -> binding.ivIcon.setImageResource(R.drawable.ic_movie) // ícono genérico opcional
+            else -> binding.ivIcon.setImageResource(R.drawable.ic_movie)
         }
 
 

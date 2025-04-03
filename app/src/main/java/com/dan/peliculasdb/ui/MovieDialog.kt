@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 
+private const val string = "Guardar"
 
 class MovieDialog(
     private val newMovie: Boolean = true,
@@ -59,8 +60,7 @@ class MovieDialog(
         }
 
         dialog = if (newMovie)
-            buildDialog("Guardar", "Cancelar", {
-                //Guardar
+            buildDialog(getString(R.string.btn_guardar), getString(R.string.btn_cancelar), {
                 binding.apply {
                     movie.title = tietTitle.text.toString()
                     movie.genre = tietGenre.text.toString()
@@ -80,24 +80,22 @@ class MovieDialog(
 
                         result.await()
 
-                        message("Pelicula guardada exitosamente")
+                        message(getString(R.string.save_movie_text))
 
                         updateUI()
 
                     }
 
                 } catch (e: IOException) {
-                    //Manejamos la excepción
                     e.printStackTrace()
 
-                    message("Error al guardar la pelicula")
+                    message(getString(R.string.error_save_movie_text))
 
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
             }, {
-                //Cancelar
 
             })
         else
@@ -122,7 +120,7 @@ class MovieDialog(
 
                         result.await()
 
-                        message("Pelicula actualizada exitosamente")
+                        message(getString(R.string.update_movie_text))
 
 
                         updateUI()
@@ -130,21 +128,17 @@ class MovieDialog(
                     }
 
                 } catch (e: IOException) {
-                    //Manejamos la excepción
                     e.printStackTrace()
-                    message("Error al actualizar la pelicula")
+                    message(getString(R.string.error_update_movie_text))
 
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
             }, {
-                //Eliminar
 
-                //Guardamos el contexto antes de la corrutina para que no se pierda
                 val context = requireContext()
 
-                //Diálogo para confirmar
                 AlertDialog.Builder(requireContext())
                     .setTitle(getString(R.string.confirmation))
                     .setMessage(getString(R.string.delete_confirmation, movie.title))
@@ -165,16 +159,15 @@ class MovieDialog(
                             }
 
                         } catch (e: IOException) {
-                            //Manejamos la excepción
                             e.printStackTrace()
 
-                            message("Error al eliminar la pelicula")
+                            message(getString(R.string.error_delete_movie_text))
 
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
                     }
-                    .setNegativeButton("Cancelar") { dialogInterface, _ ->
+                    .setNegativeButton(getString(R.string.btn_cancelar)) { dialogInterface, _ ->
                         dialogInterface.dismiss()
                     }
                     .create()
@@ -190,19 +183,21 @@ class MovieDialog(
     override fun onStart() {
         super.onStart()
 
-        val generos = listOf("Romance", "Terror", "Acción", "Ciencia Ficción","Animada", "Comedia","Otro")
+        val generos = listOf(getString(R.string.gen1),
+            getString(R.string.gen2),
+            getString(R.string.gen3),
+            getString(R.string.gen4),
+            getString(R.string.gen5),
+            getString(R.string.gen6),
+            getString(R.string.gen7))
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, generos)
         binding.tietGenre.setAdapter(adapter)
         binding.tietGenre.setOnClickListener {
             binding.tietGenre.showDropDown()
         }
 
-
-
-        //Instanciamos el repositorio
         repository = (requireContext().applicationContext as PeliculasBDApp).repository
 
-        //Referenciamos el botón "Guardar" del diálgo
         saveButton = (dialog as AlertDialog).getButton(Dialog.BUTTON_POSITIVE)
         saveButton?.isEnabled = false
 
@@ -251,13 +246,11 @@ class MovieDialog(
         negativeButton: () -> Unit,
     ): Dialog =
         AlertDialog.Builder(requireContext()).setView(binding.root)
-            .setTitle("Movie")
+            .setTitle(getString(R.string.title_dialog_box))
             .setPositiveButton(btn1Text) { _, _ ->
-                //Click para el botón positivo
                 positiveButton()
             }
             .setNegativeButton(btn2Text) { _, _ ->
-                //Click para el botón negativo
                 negativeButton()
             }
             .create()

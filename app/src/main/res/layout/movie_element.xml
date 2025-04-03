@@ -27,7 +27,7 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_margin="8dp"
-                android:contentDescription="Imagen"
+                android:contentDescription="@string/imagen"
                 android:outlineProvider="bounds"
                 android:padding="4dp"
                 android:scaleType="centerCrop"
@@ -51,7 +51,7 @@
                 app:layout_constraintStart_toEndOf="@+id/ivIcon"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.16"
-                tools:text="Título del juego" />
+                tools:text="@string/titulo_text" />
 
             <TextView
                 android:id="@+id/tvGenre"
@@ -66,7 +66,7 @@
                 app:layout_constraintStart_toEndOf="@id/ivIcon"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle"
                 app:layout_constraintVertical_bias="0.2"
-                tools:text="Género" />
+                tools:text="@string/gen_text" />
 
             <TextView
                 android:id="@+id/tvYear"
@@ -81,7 +81,7 @@
                 app:layout_constraintStart_toEndOf="@id/ivIcon"
                 app:layout_constraintTop_toBottomOf="@id/tvGenre"
                 app:layout_constraintVertical_bias="0.2"
-                tools:text="Year" />
+                tools:text="@string/year_text" />
 
             <TextView
                 android:id="@+id/tvCompania"
@@ -96,7 +96,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ivIcon"
                 app:layout_constraintTop_toBottomOf="@id/tvDirector"
-                tools:text="Compania" />
+                tools:text="@string/company_text" />
             <TextView
                 android:id="@+id/tvDirector"
                 android:layout_width="0dp"
@@ -110,7 +110,7 @@
                 app:layout_constraintStart_toEndOf="@id/ivIcon"
                 app:layout_constraintTop_toBottomOf="@id/tvYear"
                 app:layout_constraintVertical_bias="0.2"
-                tools:text="Director" />
+                tools:text="@string/director_text" />
 
 
 
